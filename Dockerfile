@@ -13,6 +13,7 @@ COPY build.gradle settings.gradle ./
 RUN ./gradlew dependencies --no-daemon
 
 COPY . .
+RUN chmod +x ./gradlew
 
 RUN ./gradlew build --no-daemon -x test
 
