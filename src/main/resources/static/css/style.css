@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+/* 기본 세팅 */
+body {
+  background: #0e0e0e url('https://www.transparenttextures.com/patterns/black-felt.png');
+  font-family: 'Share Tech Mono', monospace;
+  color: #fff;
+}
+
+/* 카드 및 로그인 박스 공용 */
+.card, .login-box {
+  background: linear-gradient(145deg, #1c1c1c, #101010);
+  border: 2px solid #3f3f3f;
+  box-shadow: 0 0 10px rgba(255, 204, 102, 0.1);
+  backdrop-filter: blur(3px);
+  transition: 0.2s ease;
+}
+
+/* 공용 인풋 필드 */
+.input-field {
+  background: #181818;
+  border: 1px solid #444;
+  color: #ffe;
+  transition: 0.2s ease;
+}
+.input-field:focus {
+  outline: none;
+  border-color: #ffc107;
+  box-shadow: 0 0 6px #ffc10799;
+  background: #1f1f1f;
+}
+
+/* 버튼 공용 */
+.glow-btn {
+  background: linear-gradient(to right, #ffa500, #ff4500);
+  color: #000;
+  border: none;
+  font-weight: bold;
+  box-shadow: 0 0 10px #ff9900aa;
+  transition: 0.2s;
+}
+.glow-btn:hover {
+  box-shadow: 0 0 20px #ffcc00;
+  transform: scale(1.02);
+}
+
+/* 캐릭터 카드 전용 추가 */
+.card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 15px rgba(255, 204, 102, 0.4);
+  border-color: #fbbf24;
+}
+
+/* 텍스트 그라디언트 타이틀 */
+.title-gradient {
+  background: linear-gradient(to right, #ffcc00, #ff3300);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.grayscale {
+  filter: grayscale(100%);
+  opacity: 0.6;
+}

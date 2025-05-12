@@ -1,0 +1,88 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.5'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+bootRun {
+	jvmArgs = ["-Dfile.encoding=UTF-8"]
+}
+
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+	maven { url 'https://repo.spring.io/milestone' }
+	maven { url 'https://repo.spring.io/snapshot' }
+}
+
+dependencies {
+	// ✅ Spring Boot 웹 애플리케이션 설정을 위한 기본 의존성
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	// ✅ Lombok 라이브러리 - 코드의 Getter, Setter, Constructor 등을 자동 생성
+	compileOnly 'org.projectlombok:lombok'       // 컴파일 시점에만 포함
+	annotationProcessor 'org.projectlombok:lombok' // Lombok 애노테이션 처리를 위한 추가 설정
+
+	// ✅ Spring Boot 개발 편의를 위한 DevTools (자동 리스타트 등)
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	// ✅ Spring Boot Test를 위한 기본 테스트 의존성
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// ✅ JUnit 플랫폼 런처 - 테스트 실행에 필요
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	// ✅ MySQL 데이터베이스 연결을 위한 JDBC 드라이버
+	implementation 'mysql:mysql-connector-java:8.0.32'
+
+	// ✅ MriaDB 데이터베이스 연결을 위한 JDBC 드라이버
+	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+
+	// ✅ JSP 및 JSTL 관련 의존성 (Tomcat Jasper와 JSTL 구현체)
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'                // Tomcat Jasper - JSP 파일을 서블릿으로 변환
+	implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0' // JSTL (Jakarta Standard Tag Library) API
+	implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1'            // JSTL 구현체 (GlassFish)
+
+	// ✅ Youtube API
+	implementation 'com.google.api-client:google-api-client:1.33.0'
+	implementation 'com.google.oauth-client:google-oauth-client-jetty:1.23.0'
+	implementation 'com.google.apis:google-api-services-youtube:v3-rev20230816-2.0.0'
+	implementation 'com.google.http-client:google-http-client-jackson2:1.39.2'
+
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.jetbrains:annotations:24.0.0'
+
+	implementation 'org.slf4j:slf4j-api:2.0.3'
+
+	implementation group: 'org.mindrot', name: 'jbcrypt', version: '0.3m' // gradle
+
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	// ✅ JWT 라이브러리
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
+	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+
+	// ✅ JSON
+	implementation 'com.google.http-client:google-http-client-jackson2:1.39.2'
+	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.0'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
