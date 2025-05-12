@@ -5,14 +5,14 @@ RUN apk add --no-cache bash
 WORKDIR /app
 
 COPY gradlew .
+RUN chmod +x ./gradlew
+
 COPY gradle gradle
 COPY build.gradle settings.gradle ./
 
 RUN ./gradlew dependencies --no-daemon
 
 COPY . .
-
-RUN chmod +x ./gradlew
 
 RUN ./gradlew build --no-daemon -x test
 
