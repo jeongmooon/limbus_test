@@ -39,6 +39,12 @@ sourceSets {
 	}
 }
 
+tasks.named('processResources') {
+	from('src/main/webapp') {
+		into 'BOOT-INF/classes' // Spring Boot가 사용할 위치에 복사
+	}
+}
+
 dependencies {
 	// ✅ Spring Boot 웹 애플리케이션 설정을 위한 기본 의존성
 	implementation 'org.springframework.boot:spring-boot-starter-web'
