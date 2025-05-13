@@ -75,6 +75,7 @@ dependencies {
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'                // Tomcat Jasper - JSP 파일을 서블릿으로 변환
 	implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0' // JSTL (Jakarta Standard Tag Library) API
 	implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1'            // JSTL 구현체 (GlassFish)
+	implementation 'jakarta.servlet:jakarta.servlet-api:5.0.0'
 
 	// ✅ Youtube API
 	implementation 'com.google.api-client:google-api-client:1.33.0'
