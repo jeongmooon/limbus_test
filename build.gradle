@@ -30,6 +30,15 @@ repositories {
 	maven { url 'https://repo.spring.io/snapshot' }
 }
 
+sourceSets {
+	main {
+		resources {
+			srcDir 'src/main/webapp'
+			exclude '**/*.java'
+		}
+	}
+}
+
 dependencies {
 	// ✅ Spring Boot 웹 애플리케이션 설정을 위한 기본 의존성
 	implementation 'org.springframework.boot:spring-boot-starter-web'
