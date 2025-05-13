@@ -12,6 +12,9 @@ COPY build.gradle settings.gradle ./
 
 RUN ./gradlew dependencies --no-daemon
 
+# JSP 파일 포함
+COPY src/main/webapp /app/src/main/webapp
+
 COPY . .
 RUN chmod +x ./gradlew
 
