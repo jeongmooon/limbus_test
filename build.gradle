@@ -34,14 +34,15 @@ sourceSets {
 	main {
 		resources {
 			srcDir 'src/main/webapp'
-			exclude '**/*.java'
+			include '**/*.jsp'  // 필요한 모든 JSP 파일 포함
 		}
 	}
 }
 
 tasks.named('processResources') {
 	from('src/main/webapp') {
-		into 'BOOT-INF/classes' // Spring Boot가 사용할 위치에 복사
+		include '**/*.jsp'
+		into 'BOOT-INF/classes/WEB-INF/views' // JAR 안에서 JSP가 있어야 할 정확한 위치
 	}
 }
 
