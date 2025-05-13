@@ -40,11 +40,13 @@ sourceSets {
 }
 
 tasks.named('processResources') {
-	from('src/main/webapp') {
-		include '**/*.jsp'
-		into 'BOOT-INF/classes/WEB-INF/views' // JAR 안에서 JSP가 있어야 할 정확한 위치
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+	from('src/main/webapp/WEB-INF/views') {
+		into 'WEB-INF/views'
 	}
 }
+
 
 dependencies {
 	// ✅ Spring Boot 웹 애플리케이션 설정을 위한 기본 의존성
