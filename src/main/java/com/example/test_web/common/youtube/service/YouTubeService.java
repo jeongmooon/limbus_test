@@ -28,9 +28,13 @@ public class YouTubeService {
     @Value("${youtube.api.key}")
     private String apiKey;
 
-    @Autowired
-    private CodeInfoRepository codeInfoRepository;
+    private final CodeInfoRepository codeInfoRepository;
 
+    @Autowired
+    public YouTubeService(CodeInfoRepository codeInfoRepository){
+        this.codeInfoRepository = codeInfoRepository;
+        System.out.println(apiKey);
+    }
     /**
      * 특정 채널의 최신 영상 ID를 가져옴
      */
