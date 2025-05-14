@@ -12,14 +12,15 @@ COPY build.gradle settings.gradle ./
 
 RUN ./gradlew dependencies --no-daemon
 
-# JSP 파일 포함
-COPY src/main/webapp /app/src/main/webapp
+# 타임리프 템플릿 포함 (resources 폴더 안의 템플릿을 빌드 후 JAR에 포함되도록)
+COPY src/main/resources /app/src/main/resources
+COPY src/main/java /app/src/main/java
 
+# 전체 프로젝트 파일 복사
 COPY . .
 RUN chmod +x ./gradlew
 
 RUN ./gradlew build --no-daemon -x test
-
 
 # Runtime
 FROM eclipse-temurin:17-jre-alpine
