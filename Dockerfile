@@ -14,6 +14,8 @@ RUN ./gradlew dependencies --no-daemon
 
 # 타임리프 템플릿 포함 (resources 폴더 안의 템플릿을 빌드 후 JAR에 포함되도록)
 COPY src/main/resources /app/src/main/resources
+# 정적 리소스를 별도로 처리
+COPY src/main/resources/static /app/src/main/resources/static
 COPY src/main/java /app/src/main/java
 
 # 전체 프로젝트 파일 복사
