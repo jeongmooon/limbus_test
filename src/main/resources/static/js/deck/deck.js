@@ -1,6 +1,7 @@
 let deckCount = 0;
 let draggedElement = null;
 
+const deckCardContainer = document.querySelector("#deck-card-container");
 const deckAddBtn = document.querySelector("#deck-add-btn");
 const deckContainer = document.getElementById("deck-zones-container");
 const deckSaveBtn = document.querySelector(".save-deck");
@@ -8,6 +9,48 @@ const newDeckBtn = document.querySelector(".new-deck-list");
 const topLabel = document.querySelector("#top-label");
 const selectDeckCode = topLabel.querySelector("select");
 let deckUUID = document.querySelector("#deck-code").value;
+
+function getDeckCardList(){
+    fetch(`/deck/card`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            return response.text().then(msg => {
+                throw new Error(msg);
+            });
+        }
+        return response.json();
+    })
+    .then(result => {
+        result.map(sinner =>{
+            sinner.userIdentities.map(identity =>{
+                const identityImgCard = document.createElement("div");
+                identityImgCard.classList = "w-full aspect-square bg-gray-800 rounded overflow-hidden";
+                identityImgCard.draggable = true;
+                identityImgCard.ondragstart = handleDragStart;
+                identityImgCard.dataset.id = identity.id;
+                identityImgCard.dataset.sinner = sinner.id;
+                identityImgCard.dataset.img = `/image/prisoner/${sinner.id}/${identity.imgPath}.webp`;
+
+                const identityImg = document.createElement("img");
+                identityImg.classList = "object-cover w-full h-full hover:scale-105 transition-transform duration-200"
+                identityImg.src = `/image/prisoner/${sinner.id}/${identity.imgPath}.webp`;
+                identityImg.alt = `${identity.name}`;
+
+                identityImgCard.append(identityImg);
+                deckCardContainer.append(identityImgCard);
+            })
+        });
+        console.log(result)
+    })
+    .catch(error => {
+        alert(JSON.parse(error.message).message);
+    });
+}
 
 function addDeck() {
     deckCount++;
@@ -297,6 +340,7 @@ window.addEventListener('DOMContentLoaded', function() {
     deckSaveBtn.addEventListener('click', saveDeck);
     newDeckBtn.addEventListener('click', newDeckList);
     selectDeckCode.addEventListener('change', deckCodeChange);
+    getDeckCardList();
     getDeckList();
 });
 

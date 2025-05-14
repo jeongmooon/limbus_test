@@ -4,6 +4,7 @@ import com.example.test_web.domain.deck.dto.DeckListDTO;
 import com.example.test_web.domain.deck.dto.DeckRequestDTO;
 import com.example.test_web.domain.deck.dto.DeckResponseDTO;
 import com.example.test_web.domain.deck.service.DeckService;
+import com.example.test_web.domain.userIdentity.dto.UserSinnerDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -27,8 +28,13 @@ public class DeckController {
     public String getDeckPage(@CookieValue("accessToken") String accessToken, Model model){
         model.addAttribute("body", "deck/deck");
         model.addAttribute("deckListCode",deckService.getDeckListUuidByUserId(accessToken));
-        model.addAttribute("sinnerList",deckService.getIdentityList(accessToken));
+
         return "layout";
+    }
+
+    @GetMapping("/card")
+    public ResponseEntity<List<UserSinnerDTO>> getDeckCardList(@CookieValue("accessToken") String accessToken){
+        return ResponseEntity.ok(deckService.getIdentityList(accessToken));
     }
 
     @GetMapping("/{uuid}")
