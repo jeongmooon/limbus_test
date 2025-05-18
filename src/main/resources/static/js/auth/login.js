@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
             pass: this[name="pass"].value
         };
 
-        fetchUse("/user/login", "POST", "application/json", formData)
+        fetchUse("/user/login", "POST", "application/json", formData,"로그인 중입니다...")
         .then(response => {
             if(!response.ok){
                 return response.text().then(msg=>{

@@ -30,6 +30,9 @@ public enum ErrorCode {
     DUPLICATED_DECK_SINNER("DCK2",400,"덱에는 중복되는 수감자는 들어갈 수 없습니다."),
     DUPLICATED_DECK_IDENTITY("DCK3",400,"덱에는 중복되는 인격은 들어갈 수 없습니다."),
 
+    //BOARD
+    INVALID_BOARD_CONTENT("BD1",400,"내용에 올바르지 않은 값이 입력되었습니다."),
+
     // COMMON
     GLOBAL_EXCEPTION("CM1", 500, "서버에서 에러가 발생하였습니다."),
     MISSING_PARAMETER("CM2", 400, "필수 파라미터가 존재하지 않습니다."),

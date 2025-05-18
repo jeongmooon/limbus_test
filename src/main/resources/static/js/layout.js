@@ -7,15 +7,23 @@ function hrefUrl(url){
     }, 300); // 0.3초 정도 여유
 }
 
-function fetchUse(url,method,type,body){
+function fetchUse(url, method, type = null, body = null, loadingMessage = "") {
     const loading = document.getElementById("loading");
+    loading.querySelector(".loading-text").textContent = loadingMessage || "로딩 중...";
     loading.style.display = "flex";
 
-    return fetch(url, {
-               method: method,
-               headers: {
-                   "Content-Type": type
-               },
-               body: JSON.stringify(body)
-           });
+    const options = {
+        method: method,
+        headers: {},
+    };
+
+    if (type) {
+        options.headers["Content-Type"] = type;
+    }
+
+    if (body) {
+        options.body = JSON.stringify(body);
+    }
+
+    return fetch(url, options);
 }

@@ -1,0 +1,176 @@
+/* === 전체 UI 배경 및 테두리 === */
+.toastui-editor-defaultUI {
+    background-color: #1f2937; /* bg-gray-800 */
+    color: #ffffff;
+    border: 1px solid #374151; /* border-gray-700 */
+    border-radius: 0.5rem;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+/* === 툴바 (위쪽 버튼 영역) === */
+.toastui-editor-defaultUI-toolbar {
+    background-color: #111827; /* bg-gray-900 */
+    border-bottom: 1px solid #374151;
+}
+
+/* 툴바 아이콘 밝기 반전 */
+.toastui-editor-toolbar-icons {
+    filter: invert(1) brightness(0.9);
+}
+
+/* 툴바 버튼 hover 효과 */
+.toastui-editor-toolbar button:hover {
+    background-color: #374151;
+}
+
+/* === 탭 버튼 (Markdown, Preview) === */
+.toastui-editor-tabs {
+    background-color: #111827; /* bg-gray-900 */
+    border-bottom: 1px solid #374151;
+}
+
+.toastui-editor-tabs button {
+    color: #9ca3af; /* text-gray-400 */
+    background-color: transparent;
+}
+
+.toastui-editor-tabs button.active {
+    color: #ffffff; /* text-white */
+    border-bottom: 2px solid #facc15; /* yellow-400 */
+}
+
+/* === 작성 영역 === */
+.toastui-editor-contents {
+    background-color: #1f2937 !important; /* bg-gray-800 */
+    color: #ffffff !important; /* text-white */
+    font-size: 1rem;
+    line-height: 1.75;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.toastui-editor-contents h1,
+.toastui-editor-contents h2,
+.toastui-editor-contents h3,
+.toastui-editor-contents p,
+.toastui-editor-contents span,
+.toastui-editor-contents ul,
+.toastui-editor-contents ol,
+.toastui-editor-contents li,
+.toastui-editor-contents blockquote,
+.toastui-editor-contents pre,
+.toastui-editor-contents code {
+    color: #ffffff !important;
+}
+
+/* 인라인 코드 */
+.toastui-editor-contents code {
+    background-color: #374151 !important;
+    color: #ffffff !important;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+}
+
+/* 코드 블록 */
+.toastui-editor-contents pre code {
+    background-color: #111827 !important;
+    color: #e5e7eb !important;
+    font-family: 'Fira Code', monospace;
+    padding: 0.5rem;
+    border-radius: 0.375rem;
+    font-size: 0.95rem;
+}
+
+/* 인용 블록 */
+.toastui-editor-contents blockquote {
+    border-left: 4px solid #4b5563;
+    padding-left: 1rem;
+    color: #d1d5db !important;
+}
+
+/* 입력 포커스 스타일 */
+.toastui-editor-defaultUI input:focus,
+.toastui-editor-defaultUI textarea:focus {
+    border-color: #93c5fd;
+    outline: none;
+    box-shadow: 0 0 0 1px #93c5fd;
+}
+
+/* === Markdown 탭 - CodeMirror 영역 전체 다크 스타일 적용 === */
+.toastui-editor-defaultUI .toastui-editor-md-container .CodeMirror {
+    background-color: #1f2937 !important;
+    color: #ffffff !important;
+    font-size: 1rem;
+    font-family: 'Fira Code', 'Noto Sans KR', monospace;
+}
+
+/* 코드 입력 영역 내부 텍스트 */
+.toastui-editor-defaultUI .toastui-editor-md-container .CodeMirror-lines,
+.toastui-editor-defaultUI .toastui-editor-md-container .CodeMirror pre,
+.toastui-editor-defaultUI .toastui-editor-md-container .CodeMirror span {
+    color: #ffffff !important;
+    background-color: #1f2937 !important;
+}
+
+/* 커서 색상 */
+.toastui-editor-defaultUI .toastui-editor-md-container .CodeMirror-cursor {
+    border-left: 1px solid #ffffff !important;
+}
+
+/* 선택 영역 배경 */
+.toastui-editor-defaultUI .toastui-editor-md-container .CodeMirror-selected {
+    background-color: #374151 !important;
+}
+
+/* 라인 번호 */
+.toastui-editor-defaultUI .toastui-editor-md-container .CodeMirror-linenumber {
+    color: #9ca3af;
+}
+
+/* === WYSIWYG 모드 ProseMirror 스타일 === */
+.toastui-editor-defaultUI .ProseMirror {
+    background-color: #1f2937 !important; /* bg-gray-800 */
+    color: #ffffff !important;            /* text-white */
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 1rem;
+    line-height: 1.75;
+}
+
+/* ProseMirror 내부 텍스트 요소 */
+.toastui-editor-defaultUI .ProseMirror h1,
+.toastui-editor-defaultUI .ProseMirror h2,
+.toastui-editor-defaultUI .ProseMirror h3,
+.toastui-editor-defaultUI .ProseMirror p,
+.toastui-editor-defaultUI .ProseMirror span,
+.toastui-editor-defaultUI .ProseMirror ul,
+.toastui-editor-defaultUI .ProseMirror ol,
+.toastui-editor-defaultUI .ProseMirror li,
+.toastui-editor-defaultUI .ProseMirror blockquote,
+.toastui-editor-defaultUI .ProseMirror pre,
+.toastui-editor-defaultUI .ProseMirror code {
+    color: #ffffff !important;
+}
+
+/* 인라인 코드 */
+.toastui-editor-defaultUI .ProseMirror code {
+    background-color: #374151 !important;
+    color: #ffffff !important;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+}
+
+/* 코드 블록 */
+.toastui-editor-defaultUI .ProseMirror pre code {
+    background-color: #111827 !important;
+    color: #e5e7eb !important;
+    font-family: 'Fira Code', monospace;
+    padding: 0.5rem;
+    border-radius: 0.375rem;
+    font-size: 0.95rem;
+}
+
+/* 인용 블록 */
+.toastui-editor-defaultUI .ProseMirror blockquote {
+    border-left: 4px solid #4b5563;
+    padding-left: 1rem;
+    color: #d1d5db !important;
+}

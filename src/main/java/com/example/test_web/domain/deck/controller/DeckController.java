@@ -28,7 +28,6 @@ public class DeckController {
     public String getDeckPage(@CookieValue("accessToken") String accessToken, Model model){
         model.addAttribute("body", "deck/deck");
         model.addAttribute("deckListCode",deckService.getDeckListUuidByUserId(accessToken));
-
         return "layout";
     }
 

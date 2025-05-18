@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
     		limbusGameCode : document.getElementById("limbusGameCode").value
         };
 
-        fetchUse("/user/register", "POST", "application/json", formData)
+        fetchUse("/user/register", "POST", "application/json", formData, "회원가입 중입니다...")
         .then(response => {
             if(!response.ok){
                 return response.text().then(msg=>{

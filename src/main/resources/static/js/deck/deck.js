@@ -293,7 +293,7 @@ function saveDeck(){
         dataArray.push(data);
     }
 */
-    fetchUse("/deck","POST","application/json",dataArray)
+    fetchUse("/deck","POST","application/json",dataArray, "저장 중입니다...")
     .then(response => {
         if (!response.ok) {
             return response.text().then(msg => {
