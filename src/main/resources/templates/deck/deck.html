@@ -22,16 +22,50 @@
                     <option th:if="${#lists.isEmpty(deckListCode)}" value="">새로운 덱</option>
                     <option th:each="deckCode : ${deckListCode}" th:value="${deckCode}" th:text="${deckCode}"></option>
                 </select>
+
+                <button
+                        class="text-sm text-yellow-300 border border-grey-300 px-4 py-2 rounded hover:bg-yellow-300 hover:text-black transition deck-uuid-copy">
+                        복사하기
+                </button>
             </div>
 
             <div>
-                <button class="text-sm text-yellow-300 border border-grey-300 px-4 py-2 rounded hover:bg-yellow-300 hover:text-black transition new-deck-list h-fit">
-                    ✏️ 추가
-                </button>
-                <button class="text-sm text-yellow-300 border border-grey-300 px-4 py-2 rounded hover:bg-yellow-300 hover:text-black transition save-deck h-fit">
-                    ✏️ 저장
-                </button>
+                <label class="block text-sm text-gray-200 mb-1">덱불러오기</label>
+                <div class="flex items-center gap-2">
+                    <!-- input 안에 돋보기 버튼 포함 -->
+                    <div class="relative w-96">
+                        <input
+                                type="text"
+                                name="deck-uuid"
+                                class="p-2 pl-10 w-96 rounded bg-gray-800 text-white placeholder-gray-400"
+                                placeholder="덱 UUID 입력" />
+                        <button
+                                type="button"
+                                class="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-yellow-300"
+                                id="deck-uuid-search-btn">
+                            <!-- 돋보기 아이콘 (Heroicons 기준) -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                                 stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M21 21l-4.35-4.35M16.65 16.65A7.5 7.5 0 1016.65 2a7.5 7.5 0 000 15z"/>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- 추가 / 저장 버튼 -->
+                    <button class="text-sm text-yellow-300 border border-grey-300 px-4 py-2 rounded hover:bg-yellow-300 hover:text-black transition new-deck-list">
+                        추가
+                    </button>
+                    <button class="text-sm text-yellow-300 border border-grey-300 px-4 py-2 rounded hover:bg-yellow-300 hover:text-black transition save-deck">
+                        저장
+                    </button>
+                    <button class="text-sm text-yellow-300 border border-grey-300 px-4 py-2 rounded hover:bg-yellow-300 hover:text-black transition user-identity-btn">
+                        전체 인격
+                    </button>
+                </div>
             </div>
+
+
         </div>
 
         <!-- 20칸 그리드 -->

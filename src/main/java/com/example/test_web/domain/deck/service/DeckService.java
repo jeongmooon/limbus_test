@@ -97,18 +97,24 @@ public class DeckService {
             List<Identity> identities = identityRepository.findAllById(deckRequest.getIdentityList());
 
             int i = 0;
-            for (Identity identity : identities) {
-                if (!sinnerIdSet.add(identity.getSinner().getId())) {
-                    throw new BizException(ErrorCode.DUPLICATED_DECK_SINNER);
+            for(Long identityId : deckRequest.getIdentityList()){
+                for (Identity identity : identities) {
+                    if(Objects.equals(identityId, identity.getId())){
+                        if (!sinnerIdSet.add(identity.getSinner().getId())) {
+                            throw new BizException(ErrorCode.DUPLICATED_DECK_SINNER);
+                        }
+                        if (!identityIdSet.add(identity.getId())) {
+                            throw new BizException(ErrorCode.DUPLICATED_DECK_IDENTITY);
+                        }
+                        deckIdentities.add(DeckIdentity.builder()
+                                .identity(identity)
+                                .slotOrder(i++)
+                                .build());
+                    }
                 }
-                if (!identityIdSet.add(identity.getId())) {
-                    throw new BizException(ErrorCode.DUPLICATED_DECK_IDENTITY);
-                }
-                deckIdentities.add(DeckIdentity.builder()
-                        .identity(identity)
-                        .slotOrder(i++)
-                        .build());
             }
+
+
 
             // Deck 객체 생성
             Deck deck = Deck.builder()
@@ -171,7 +177,7 @@ public class DeckService {
 
     public DeckListDTO getDeckListByUserIdAndUuid(String accessToken, String uuid){
         Long id = Long.parseLong(Objects.requireNonNull(JwtUtil.validate(accessToken)));
-        DeckList deckList = deckListRepository.findByUserIdAndUuid(id, uuid)
+        DeckList deckList = deckListRepository.findByUuid(uuid)
                 .orElseThrow(() -> new BizException(ErrorCode.NO_DECK_LIST_DATA));
 
         List<DeckDTO> deckListDTO = new ArrayList<>();
@@ -193,6 +199,7 @@ public class DeckService {
                         .identityId(identityId)
                         .sinnerId(sinnerId)
                         .imgPath(imgPath)
+                        .keyword(List.of("키워드임", "키워드임2")) // 수정대상
                         .build());
             }
 

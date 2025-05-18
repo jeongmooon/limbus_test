@@ -6,8 +6,8 @@
     <title>login</title>
 </head>
 <body>
-<div th:replace="~{layout :: content}">
-    <div th:fragment="content">
+<div th:replace="~{layout :: content}"></div>
+    <th:block th:fragment="content">
 <div class="flex items-center justify-center min-h-screen">
 
     <div class="login-box w-[380px] p-8 rounded-xl text-center">
@@ -27,16 +27,15 @@
             </div>
 
             <button type="submit" class="glow-btn w-full py-3 mt-4 rounded-md">시스템 접속</button>
-            <button type="button" class="glow-btn w-full py-3 mt-4 rounded-md" th:onclick="|location.href='@{/user/register}'|">회원가입</button>
+            <button type="button" class="glow-btn w-full py-3 mt-4 rounded-md register-btn">회원가입</button>
 
             <p class="text-xs text-gray-500 mt-3">ⓒ Co. - jeongmooon.</p>
         </form>
 
     </div>
-    <script th:src="@{/static/js/auth/login.js}"></script>
 
 </div>
-    </div>
-</div>
+        <script src = "/js/auth/login.js"></script>
+    </th:block>
 </body>
 </html>

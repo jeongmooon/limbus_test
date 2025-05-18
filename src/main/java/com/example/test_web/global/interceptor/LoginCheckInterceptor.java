@@ -83,6 +83,9 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
                 uri.equals("/user/register") ||
                 uri.startsWith("/static/") ||
                 uri.startsWith("/public/") ||
+                uri.startsWith("/js/") ||           // 추가
+                uri.startsWith("/css/") ||          // 추가
+                uri.startsWith("/image/") ||       // 필요시 추가
                 uri.equals("/error") ||
                 uri.startsWith("/test");
     }

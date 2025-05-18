@@ -35,7 +35,12 @@ public class IdentityService {
         Identity identity = Identity.toEntity(identityRequestDTO, sinner);
         identity = identityRepository.save(identity);
 
-        ImageUtil.saveImage(identityRequestDTO.getFile(), String.valueOf(sinner.getId()), String.valueOf(identity.getId()));
+        if(identityRequestDTO.getImgUrl().isEmpty()){
+            ImageUtil.saveImage(identityRequestDTO.getFile(), String.valueOf(sinner.getId()), String.valueOf(identity.getId()));
+        } else {
+            ImageUtil.downloadImage(identityRequestDTO.getImgUrl(), String.valueOf(sinner.getId())+ "\\" +String.valueOf(identity.getId()));
+        }
+
         identity.uploadImgPath(String.valueOf(identity.getId()));
 
         return null;

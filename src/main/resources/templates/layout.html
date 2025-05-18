@@ -5,17 +5,30 @@
     <title>layout</title>
     <!-- Tailwind & 공통 스타일 -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" th:href="@{/static/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
 <body class="pt-16 bg-gray-950 text-white" style="margin-bottom:40px;margin-left:40px;margin-right:40px;">
 
+<!-- 저장 중 로딩 오버레이 -->
+<div id="loading-href" class="loading-overlay" style="display: none;">
+    <div class="spinner"></div>
+    <div class="loading-text">페이지 이동 중입니다...</div>
+</div>
+
+
+<div id="loading" class="loading-overlay" style="display: none;">
+    <div class="spinner"></div>
+    <div class="loading-text">저장 중입니다...</div>
+</div>
+
 <!-- 공통 네비게이션 바 -->
 <div th:replace="~{common/navbar :: navbar}"></div>
-
 <!-- 본문 영역 -->
 <div class="max-w-8.5xl mx-auto px-2">
     <div th:replace="~{${body} :: content}"></div>
 </div>
 
+<script src = "/js/layout.js"></script>
+<script src = "/js/common/nav.js"></script>
 </body>
 </html>

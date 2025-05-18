@@ -30,5 +30,6 @@ public class UserInfo {
         this.pass = pass;
         this.salt = salt;
         this.gameCode = gameCode;
+        this.role = role;
     }
 }

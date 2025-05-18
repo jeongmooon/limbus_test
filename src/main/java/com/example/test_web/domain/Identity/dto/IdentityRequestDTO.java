@@ -21,6 +21,8 @@ public class IdentityRequestDTO {
     private Integer grade;
     private Long sinnerId;
 
+    private String imgUrl;
+
     @ImgValid
     private MultipartFile file;
 }

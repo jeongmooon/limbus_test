@@ -1,26 +1,25 @@
+const registerBtn = document.querySelector(".register-btn");
 // 비밀번호 보기 토글
 function togglePassword(inputId) {
     const pwInput = document.getElementById(inputId);
     pwInput.type = pwInput.type === "password" ? "text" : "password";
 }
+function registerBtnClickEvent(e){
+    hrefUrl("/user/register");
+}
 
 // 페이지 준비 시 초기 실행 (예: 에러 메시지 자동 실행)
 document.addEventListener("DOMContentLoaded", () => {
+    registerBtn.addEventListener('click', registerBtnClickEvent);
     document.getElementById("loginForm").addEventListener("submit", async function(e) {
-        e.preventDefault(); // ⛔ 기본 제출 막기
+        e.preventDefault();
 
         const formData = {
             userId: this[name="userId"].value,
             pass: this[name="pass"].value
         };
 
-        fetch("/user/login", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify(formData)
-        })
+        fetchUse("/user/login", "POST", "application/json", formData)
         .then(response => {
             if(!response.ok){
                 return response.text().then(msg=>{
@@ -30,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return response.text();
         })
         .then(result => {
-            location.href = "/main";
+            hrefUrl("/main");
         })
         .catch(error =>{
             alert(JSON.parse(error.message).message);

@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.getElementById("registerForm").addEventListener("submit", async function(e) {
-        e.preventDefault(); // ⛔ 기본 제출 막기
+        e.preventDefault();
 
         const formData = {
             userId: document.getElementById("userId").value,
@@ -61,13 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
     		limbusGameCode : document.getElementById("limbusGameCode").value
         };
 
-        fetch("/user/register", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify(formData)
-        })
+        fetchUse("/user/register", "POST", "application/json", formData)
         .then(response => {
             if(!response.ok){
                 return response.text().then(msg=>{
@@ -77,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return response.text();
         })
         .then(result => {
-            location.href = "/main";
+            hrefUrl("/main");
         })
         .catch(error =>{
             alert(JSON.parse(error.message).message);
