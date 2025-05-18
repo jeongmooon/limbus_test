@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>통계 대시보드</title>
+</head>
+<div th:replace="~{layout :: content}">
+    <div th:fragment="content">
+<body class="bg-gray-900 text-white min-h-screen p-6">
+
+<h1 class="text-3xl font-bold text-yellow-400 mb-8">📊 통계 대시보드</h1>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+    <!-- 바 차트 -->
+    <div class="bg-gray-800 p-6 rounded-xl shadow-xl">
+        <h2 class="text-xl mb-4 text-yellow-300">사용자 수 (월별)</h2>
+        <canvas id="barChart"></canvas>
+    </div>
+
+    <!-- 파이 차트 -->
+    <div class="bg-gray-800 p-6 rounded-xl shadow-xl">
+        <h2 class="text-xl mb-4 text-yellow-300">덱 타입 분포</h2>
+        <canvas id="pieChart"></canvas>
+    </div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // 바 차트
+    new Chart(document.getElementById('barChart'), {
+      type: 'bar',
+      data: {
+        labels: ['1월', '2월', '3월', '4월', '5월'],
+        datasets: [{
+          label: '가입자 수',
+          data: [30, 45, 60, 40, 75],
+          backgroundColor: '#facc15' // Tailwind yellow-400
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+    // 파이 차트
+    new Chart(document.getElementById('pieChart'), {
+      type: 'pie',
+      data: {
+        labels: ['공격형', '방어형', '지원형'],
+        datasets: [{
+          data: [50, 30, 20],
+          backgroundColor: ['#facc15', '#38bdf8', '#34d399'] // yellow-400, sky-400, green-400
+        }]
+      },
+      options: {
+        responsive: true
+      }
+    });
+</script>
+
+</body>
+    </div>
+</div>
+</html>
