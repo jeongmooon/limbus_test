@@ -1,5 +1,6 @@
 package com.example.test_web.global.exception;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
@@ -19,8 +20,17 @@ import java.util.List;
 public class ExceptionControllerAdvice {
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleException(Exception e) {
-        log.error("handleException", e);
+    public ResponseEntity<?> handleException(HttpServletRequest request, Exception e) throws Exception {
+        String accept = request.getHeader("Accept");
+
+        log.error("GlobalExceptionHandler: {}", request.getRequestURI(), e);
+
+        // 브라우저에서 온 HTML 요청이면, 예외를 다시 던져서 DispatcherServlet이 /error 로 넘기게 한다
+        if (accept != null && accept.contains("text/html")) {
+            throw e; // ★ 핵심 ★
+        }
+
+        // API 요청인 경우에만 JSON 반환
         ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.GLOBAL_EXCEPTION);
         return new ResponseEntity<>(errorResponse, errorResponse.getStatus());
     }

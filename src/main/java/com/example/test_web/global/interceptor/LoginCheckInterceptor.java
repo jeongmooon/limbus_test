@@ -10,12 +10,14 @@ import com.example.test_web.global.util.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import java.time.Duration;
 
+@Slf4j
 @Component
 public class LoginCheckInterceptor implements HandlerInterceptor {
 
@@ -34,7 +36,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
         String refreshToken = HttpUtil.getCookieValue(request, "refreshToken");
 
         // ✅ 로그인 상태일 때 로그인/회원가입 페이지 접근 차단
-        if ((accessToken != null || refreshToken != null) && (uri.equals("/user/login") || uri.equals("/user/register"))) {
+        if ((accessToken != null || refreshToken != null) && (uri.equals("/user/login") || uri.equals("/user/register") || uri.equals("/"))) {
             response.sendRedirect("/main");
             return false;
         }
