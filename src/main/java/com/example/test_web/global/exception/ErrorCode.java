@@ -32,6 +32,7 @@ public enum ErrorCode {
 
     //BOARD
     INVALID_BOARD_CONTENT("BD1",400,"내용에 올바르지 않은 값이 입력되었습니다."),
+    NOT_BOARD_ID("BD2",400,"잘못된 게시번호 입니다."),
 
     // COMMON
     GLOBAL_EXCEPTION("CM1", 500, "서버에서 에러가 발생하였습니다."),

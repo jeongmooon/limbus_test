@@ -6,19 +6,25 @@ import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.GeneralSecurityException;
+import java.time.LocalTime;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class YouTubeService {
 
@@ -33,15 +39,14 @@ public class YouTubeService {
     @Autowired
     public YouTubeService(CodeInfoRepository codeInfoRepository){
         this.codeInfoRepository = codeInfoRepository;
-        System.out.println(apiKey);
     }
     /**
      * 특정 채널의 최신 영상 ID를 가져옴
      */
+    @Cacheable(value="youtubeVideoCache", key="'last-roche-video'")
     public String getLatestVideoByChannel() throws GeneralSecurityException, IOException {
-
+        log.info("callService - first call at {} from YouTubeService", LocalTime.now());
         //String channelId = "UCpqyr6h4RCXCEswHlkSjykA"; // 프로젝트문 채널 ID
-        //String channelId = "UCfTGW15PCQnPVAauEBq0iBg"; // 내 유튜브 채널 ID
         String channelId = codeInfoRepository.findById("YOUTUBE_CHANNELID").map(CodeInfo::getValue).orElse("");
         String getPlayListTitle = codeInfoRepository.findById("YOUTUBE_PLAYLIST").map(CodeInfo::getValue).orElse("");
         String getVideoTitle = codeInfoRepository.findById("YOUTUBE_VIDEO_TITLE").map(CodeInfo::getValue).orElse("");
@@ -109,30 +114,13 @@ public class YouTubeService {
         }
 
         return null;
-/*
-        // Define and execute the API request
-        YouTube.Search.List request = youtubeService.search()
-                .list(Collections.singletonList("snippet"))
-                .setChannelId(channelId)
-                .setOrder("date") // Order by date
-                .setMaxResults(1L); // Get only the latest video
+    }
 
-
-        SearchListResponse response = request.setKey(apiKey).execute();
-        List<SearchResult> items = response.getItems();
-
-        log.info("Number of items retrieved -> {}", items.size());
-
-        if (!items.isEmpty()) {
-            SearchResult item = items.get(0); // 첫 번째 아이템 가져오기
-            String videoId = item.getId().getVideoId(); // 비디오 ID 추출
-            log.info("Video ID of the latest video -> {}", videoId);
-            return videoId;
-        } else {
-            log.info("No videos found for channel ID {}", channelId);
-            return null;
-        }
-        */
+    // 매일 새벽 3시에 캐시 비움 → 다음 요청 시 자동으로 새로 호출
+    @Scheduled(cron = "0 0 3 * * *")
+    @CacheEvict(value = "youtubeVideoCache", key = "'last-roche-video'")
+    public void clearCache() {
+        log.info("Scheduler - Cache evicted at {} from YouTubeService", LocalTime.now());
     }
 
     /**

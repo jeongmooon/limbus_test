@@ -15,8 +15,8 @@ import java.time.LocalDate;
 public class BoardInfo implements SliceElement {
     private Long id;
     private String title;
-    private String content;
+    private String userId;
     private LocalDate registDate;
     private Long view;
-    private String userId;
+    private String content;
 }

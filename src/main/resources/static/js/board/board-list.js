@@ -10,15 +10,22 @@ function renderPosts(posts) {
     posts.forEach(post => {
         const row = document.createElement('tr');
         row.className = 'border-t border-gray-600 hover:bg-gray-700 transition';
-        row.innerHTML = `
-            <td class="p-3">${post.id}</td>
-            <td class="p-3">
-                <a href="/board/${post.id}" class="text-yellow-300 hover:underline">${post.title}</a>
-            </td>
-            <td class="p-3">${post.userId}</td>
-            <td class="p-3">${post.registDate}</td>
-            <td class="p-3">${post.view}</td>
-        `;
+        for (let key in post) {
+            if(key === "content") continue;
+            const td = document.createElement('td');
+            td.className = "p-3";
+
+            if(key === "title"){
+                const div = document.createElement('div');
+                div.className = "text-yellow-300 hover:underline cursor-pointer";
+                div.textContent = `${post.title}`;
+                div.onclick = () => hrefUrl(`/board/${post.id}`);
+                td.append(div);
+            } else {
+                td.textContent = `${post[key]}`;
+            }
+            row.append(td);
+        }
         postListEl.appendChild(row);
     });
 }

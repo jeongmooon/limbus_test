@@ -43,10 +43,20 @@ public class BoardController {
         return ResponseEntity.ok(new SliceResponse<>(result));
     }
 
+    @GetMapping("/{id}")
+    public String getBoardPage(
+            @PathVariable("id") Long id,
+            Model model
+    ){
+        model.addAttribute("boardDTO", boardService.getBoard(id));
+        model.addAttribute("body", "board/board");
+        return "layout";
+    }
+
     @GetMapping("/write")
     public String getBoardWritePage(@CookieValue("accessToken") String accessToken, Model model){
         model.addAttribute("body", "board/board-write");
-        model.addAttribute("boardDTO", boardService.getBoard(accessToken));
+        model.addAttribute("boardDTO", boardService.getBoardWrite(accessToken));
         return "layout";
     }
 

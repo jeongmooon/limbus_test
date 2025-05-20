@@ -17,6 +17,7 @@ import org.jsoup.safety.Safelist;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -33,7 +34,15 @@ public class BoardService {
         return boardList;
     }
 
-    public BoardDTO getBoard(String accessToken){
+    @Transactional
+    public BoardDTO getBoard(Long id){
+        Board board =  boardRepository.findById(id)
+                        .orElseThrow(() -> new BizException(ErrorCode.NOT_BOARD_ID));
+        board.updateView();
+        return Board.toEntity(board);
+    }
+
+    public BoardDTO getBoardWrite(String accessToken){
         Long userId = Long.parseLong(Objects.requireNonNull(JwtUtil.validate(accessToken)));
         UserInfo user = userInfoRepository.getReferenceById(userId);
         return BoardDTO.builder().author(user.getGameCode()).build();
