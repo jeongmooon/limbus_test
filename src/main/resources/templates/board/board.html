@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>게시글 조회</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Fira+Code&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/board/board.css}" />
+</head>
+<div th:replace="~{layout :: content}">
+    <div th:fragment="content">
+        <body class="p-8">
+        <div class="px-6" id="container">
+            <div class="mb-8">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-yellow-300 text-lg">📄 게시글 조회</h2>
+                    <a href="/board" class="text-sm text-yellow-300 border border-grey-300 px-4 py-2 rounded hover:bg-yellow-300 hover:text-black transition">목록으로</a>
+                </div>
+
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm text-gray-200 mb-1">제목</label>
+                        <div class="text-white bg-gray-800 p-2 rounded" th:text="${boardDTO.title}">제목</div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm text-gray-200 mb-1">작성자</label>
+                        <div class="text-white bg-gray-800 p-2 rounded" th:text="${boardDTO.author}">작성자</div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm text-gray-200 mb-1">내용</label>
+                        <div class="text-white bg-gray-800 p-4 rounded prose max-w-full" th:utext="${boardDTO.content}">
+                            게시글 내용
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </body>
+    </div>
+</div>
+</html>
