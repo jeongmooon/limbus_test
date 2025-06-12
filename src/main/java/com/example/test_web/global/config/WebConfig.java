@@ -22,6 +22,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        /*
         registry.addInterceptor(loginCheckInterceptor)
                 .addPathPatterns("/**")
                 .excludePathPatterns(
@@ -35,6 +36,7 @@ public class WebConfig implements WebMvcConfigurer {
                         "/static/**",
                         "/favicon.ico"
                 );
+         */
     }
 
     @Override

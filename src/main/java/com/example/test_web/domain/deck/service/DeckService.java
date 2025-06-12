@@ -43,14 +43,12 @@ public class DeckService {
         Long id = Long.parseLong(Objects.requireNonNull(JwtUtil.validate(accessToken)));
         List<IdentityProjection> projections = identityRepository.findAllWithOwnershipByUserId(id);
 
-        // Sinner ID 기준으로 그룹핑
         Map<Long, List<UserIdentityDTO>> groupedIdentities = new LinkedHashMap<>();
         Map<Long, String> sinnerNames = new HashMap<>();
 
         for (IdentityProjection projection : projections) {
             Long sinnerId = projection.getSinnerId();
 
-            // Identity 리스트에 추가
             groupedIdentities.computeIfAbsent(sinnerId, k -> new ArrayList<>()).add(
                     UserIdentityDTO.builder()
                             .id(projection.getIdentityId())
@@ -61,7 +59,6 @@ public class DeckService {
                             .build()
             );
 
-            // Sinner 이름 저장
             sinnerNames.putIfAbsent(sinnerId, projection.getSinnerName());
         }
 
@@ -114,15 +111,11 @@ public class DeckService {
                 }
             }
 
-
-
-            // Deck 객체 생성
             Deck deck = Deck.builder()
                     .name(deckRequest.getName())
                     .deckIdentities(deckIdentities)
                     .build();
 
-            // 양방향 관계 설정: Deck -> DeckIdentity
             for (DeckIdentity di : deckIdentities) {
                 di.setDeck(deck); // DeckIdentity에 Deck 설정
             }
@@ -135,7 +128,6 @@ public class DeckService {
         if(request.get(0).getUuid() != null && !request.get(0).getUuid().isEmpty()){
             deckList.updateDeckList(decks);
         } else {
-            // DeckList 객체 생성
             deckList = DeckList.builder()
                     .uuid(uuid)
                     .deckList(decks)
@@ -143,12 +135,10 @@ public class DeckService {
                     .registDate(LocalDate.now())
                     .build();
 
-            // 양방향 관계 설정: Deck -> DeckList
             for (Deck deck : decks) {
-                deck.setDeckList(deckList); // Deck에 DeckList 설정
+                deck.setDeckList(deckList);
             }
 
-            // 저장
             deckListRepository.save(deckList);
         }
 

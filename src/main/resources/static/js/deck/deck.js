@@ -237,17 +237,6 @@ function handleDrop(e, targetDeckId) {
 
     targetContainer.appendChild(img);
     if (draggedElement) draggedElement._moved = true;
-/*
-    // 원본 삭제
-    if (draggedFrom !== targetDeckId && draggedFrom !== '') {
-        const sourceDeck = document.getElementById(draggedFrom);
-        const children = sourceDeck.querySelectorAll("img");
-        children.forEach(child => {
-            if (child.dataset.identity === data.id && child.dataset.sinner === data.sinnerId) {
-                child.remove();
-            }
-        });
-    }*/
 }
 
 function saveDeck(){
@@ -272,27 +261,7 @@ function saveDeck(){
 
         dataArray.push(data);
     });
-/*
-    for(i=1; i<=deckNum; i++){
-        const deckList = document.querySelector(`#deck-container-${i}`);
-        if(deckList === null) continue;
-        const deckName = deckList.previousSibling.textContent;
-        const identityImgList = deckList.querySelectorAll("img");
-        const identityList = new Array;
 
-        for(identity of identityImgList){
-            identityList.push(identity.dataset["identity"]);
-        }
-
-        const data = {
-            uuid : deckUUID,
-            name : deckName,
-            identityList :identityList
-        }
-
-        dataArray.push(data);
-    }
-*/
     fetchUse("/deck","POST","application/json",dataArray, "저장 중입니다...")
     .then(response => {
         if (!response.ok) {

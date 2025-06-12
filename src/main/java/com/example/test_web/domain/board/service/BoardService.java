@@ -54,13 +54,10 @@ public class BoardService {
 
         String content = boardRequestDTO.getContent();
 
-        // 1. Jsoup로 이미지 태그 제거
         String sanitizedContent = JsoupUtil.replaceTag(content, "img").replaceAll("!\\[[^\\]]*\\]\\([^)]*\\)", "");
 
-        // 3. script 등 XSS 위험 요소도 제거 (추가 보안)
         sanitizedContent = JsoupUtil.safeXss(sanitizedContent);
 
-        // 4. 완전히 비었는지 체크 (필요 시)
         if (sanitizedContent.trim().isEmpty()) {
             throw new BizException(ErrorCode.INVALID_BOARD_CONTENT);
         }

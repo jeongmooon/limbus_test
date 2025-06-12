@@ -35,6 +35,8 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
         String accessToken = HttpUtil.getCookieValue(request, "accessToken");
         String refreshToken = HttpUtil.getCookieValue(request, "refreshToken");
 
+        log.debug(uri);
+
         // ✅ 로그인 상태일 때 로그인/회원가입 페이지 접근 차단
         if ((accessToken != null || refreshToken != null) && (uri.equals("/user/login") || uri.equals("/user/register") || uri.equals("/"))) {
             response.sendRedirect("/main");
