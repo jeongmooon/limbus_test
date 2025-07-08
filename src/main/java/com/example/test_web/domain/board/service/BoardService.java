@@ -35,11 +35,14 @@ public class BoardService {
     }
 
     @Transactional
-    public BoardDTO getBoard(Long id){
+    public BoardDTO getBoard(Long id, String accessToken){
+        Long userId = Long.parseLong(Objects.requireNonNull(JwtUtil.validate(accessToken)));
+        UserInfo user = userInfoRepository.getReferenceById(userId);
+
         Board board =  boardRepository.findById(id)
                         .orElseThrow(() -> new BizException(ErrorCode.NOT_BOARD_ID));
         board.updateView();
-        return Board.toEntity(board);
+        return Board.toEntity(board, user.getUserId());
     }
 
     public BoardDTO getBoardWrite(String accessToken){
@@ -65,6 +68,35 @@ public class BoardService {
         Board board = Board.createBoard(boardRequestDTO.getTitle(), sanitizedContent, user);
 
         boardRepository.save(board);
+        return "success";
+    }
+
+    public BoardDTO getBoardWrite(String accessToken, Long id){
+        Long userId = Long.parseLong(Objects.requireNonNull(JwtUtil.validate(accessToken)));
+        UserInfo user = userInfoRepository.getReferenceById(userId);
+        Board board =  boardRepository.findByIdAndUserId(id, userId)
+                .orElseThrow(() -> new BizException(ErrorCode.NOT_BOARD_ID));
+        return Board.toEntity(board);
+    }
+
+    @Transactional
+    public String modifyBoard(BoardRequestDTO boardRequestDTO, String accessToken){
+        Long userId = Long.parseLong(Objects.requireNonNull(JwtUtil.validate(accessToken)));
+        UserInfo user = userInfoRepository.getReferenceById(userId);
+        Board board =  boardRepository.findByIdAndUserId(boardRequestDTO.getId(), userId)
+                .orElseThrow(() -> new BizException(ErrorCode.NOT_BOARD_ID));
+
+        String content = boardRequestDTO.getContent();
+
+        String sanitizedContent = JsoupUtil.replaceTag(content, "img").replaceAll("!\\[[^\\]]*\\]\\([^)]*\\)", "");
+
+        sanitizedContent = JsoupUtil.safeXss(sanitizedContent);
+
+        if (sanitizedContent.trim().isEmpty()) {
+            throw new BizException(ErrorCode.INVALID_BOARD_CONTENT);
+        }
+
+        board.updateBoard(boardRequestDTO);
         return "success";
     }
 }

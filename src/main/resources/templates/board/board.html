@@ -14,7 +14,10 @@
             <div class="mb-8">
                 <div class="flex items-center justify-between mb-6">
                     <h2 class="text-yellow-300 text-lg">📄 게시글 조회</h2>
-                    <a href="/board" class="text-sm text-yellow-300 border border-grey-300 px-4 py-2 rounded hover:bg-yellow-300 hover:text-black transition">목록으로</a>
+                    <div class="flex items-center justify-between mb-6">
+                        <a th:if="${boardDTO.modifyYn == 'Y'}" th:href="@{/board/modify/{id}(id = ${boardDTO.id})}" class="text-sm text-yellow-300 border border-grey-300 px-4 py-2 rounded hover:bg-yellow-300 hover:text-black transition">수정</a>
+                        <a href="/board" class="text-sm text-yellow-300 border border-grey-300 px-4 py-2 rounded hover:bg-yellow-300 hover:text-black transition">목록</a>
+                    </div>
                 </div>
 
                 <div class="space-y-6">

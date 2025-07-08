@@ -46,9 +46,10 @@ public class BoardController {
     @GetMapping("/{id}")
     public String getBoardPage(
             @PathVariable("id") Long id,
+            @CookieValue("accessToken") String accessToken,
             Model model
     ){
-        model.addAttribute("boardDTO", boardService.getBoard(id));
+        model.addAttribute("boardDTO", boardService.getBoard(id, accessToken));
         model.addAttribute("body", "board/board");
         return "layout";
     }
@@ -60,9 +61,22 @@ public class BoardController {
         return "layout";
     }
 
+    @GetMapping("/modify/{id}")
+    public String getBoardModifyPage(@CookieValue("accessToken") String accessToken, @PathVariable("id") Long id, Model model){
+        model.addAttribute("body", "board/board-modify");
+        model.addAttribute("boardDTO", boardService.getBoardWrite(accessToken,id));
+        return "layout";
+    }
+
     @ResponseBody
     @PostMapping("/write")
     public ResponseEntity<String> getBoardWrite(@RequestBody BoardRequestDTO boardRequestDTO, @CookieValue("accessToken") String accessToken){
         return ResponseEntity.ok(boardService.addBoard(boardRequestDTO, accessToken));
+    }
+
+    @ResponseBody
+    @PostMapping("/modify")
+    public ResponseEntity<String> modifyBoard(@RequestBody BoardRequestDTO boardRequestDTO, @CookieValue("accessToken") String accessToken){
+        return ResponseEntity.ok(boardService.modifyBoard(boardRequestDTO, accessToken));
     }
 }

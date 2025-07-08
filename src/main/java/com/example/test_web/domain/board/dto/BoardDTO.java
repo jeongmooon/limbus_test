@@ -6,7 +6,9 @@ import lombok.*;
 @Getter
 @Builder
 public class BoardDTO implements SliceElement {
+    private Long id;
     private String title;
     private String content;
     private String author;
+    private String modifyYn;
 }

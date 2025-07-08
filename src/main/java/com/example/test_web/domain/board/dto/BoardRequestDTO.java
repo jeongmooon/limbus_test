@@ -8,6 +8,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class BoardRequestDTO {
+    private Long id;
     private String title;
     private String content;
 }

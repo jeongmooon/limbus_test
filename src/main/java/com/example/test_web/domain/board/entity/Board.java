@@ -36,6 +36,11 @@ public class Board {
         }
     }
 
+    public void updateBoard(BoardRequestDTO dto){
+        this.title = dto.getTitle();
+        this.content = dto.getContent();
+    }
+
     public static Board createBoard(String title, String content, UserInfo user){
         return Board.builder()
                 .title(title)
@@ -49,9 +54,20 @@ public class Board {
 
     public static BoardDTO toEntity(Board board){
         return BoardDTO.builder()
+                .id(board.getId())
                 .title(board.getTitle())
                 .content(board.getContent())
                 .author(board.getUser().getUserId())
+                .build();
+    }
+
+    public static BoardDTO toEntity(Board board, String userId){
+        return BoardDTO.builder()
+                .id(board.getId())
+                .title(board.getTitle())
+                .content(board.getContent())
+                .author(board.getUser().getUserId())
+                .modifyYn(board.getUser().getUserId().equals(userId) ? "Y" : "N")
                 .build();
     }
 }

@@ -4,6 +4,7 @@ function hrefUrl(url){
 
     setTimeout(() => {
         window.location.href = url;
+        loading.style.display = "none";
     }, 300); // 0.3초 정도 여유
 }
 

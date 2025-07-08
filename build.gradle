@@ -39,9 +39,9 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 
-	// ✅ 데이터베이스 드라이버 (둘 중 하나만 사용 권장)
-	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'                                // MariaDB 드라이버
-	// implementation 'mysql:mysql-connector-java:8.0.32'                             // (선택) MySQL 드라이버 - 위와 함께 사용하면 충돌 주의
+	// ✅ 데이터베이스 드라이버
+	//runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'                                // MariaDB 드라이버
+	implementation 'mysql:mysql-connector-java:8.0.32'                             // MySQL 드라이버
 
 	// ✅ 로그
 	implementation 'org.slf4j:slf4j-api:2.0.3'                                         // 로깅 API (Logback 등 구현체와 함께 사용)

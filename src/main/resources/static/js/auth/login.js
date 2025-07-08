@@ -1,4 +1,5 @@
 const registerBtn = document.querySelector(".register-btn");
+
 // 비밀번호 보기 토글
 function togglePassword(inputId) {
     const pwInput = document.getElementById(inputId);
@@ -13,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     registerBtn.addEventListener('click', registerBtnClickEvent);
     document.getElementById("loginForm").addEventListener("submit", async function(e) {
         e.preventDefault();
+        const loading = document.getElementById("loading");
 
         const formData = {
             userId: this[name="userId"].value,
@@ -33,6 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .catch(error =>{
             alert(JSON.parse(error.message).message);
+            loading.style.display = "none";
         });
     });
 });
